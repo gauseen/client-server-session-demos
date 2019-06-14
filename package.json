@@ -1,11 +1,12 @@
 {
   "name": "login-auth-api",
   "version": "1.0.0",
+  "description": "用户注册、登录方式",
   "main": "index.js",
   "author": "gauseen",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon index.js -e js"
+    "dev:jwt": "nodemon JWT/index.js -e js"
   },
   "dependencies": {
     "bcrypt": "^3.0.6",

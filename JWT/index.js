@@ -5,8 +5,8 @@ const morgan = require('morgan') // 命令行 log 显示
 const mongoose = require('mongoose')
 
 // JWT
-const routes = require('./JWT/routes')
-const config = require('./config')
+const routes = require('./routes')
+const config = require('../config')
 
 let port = process.env.PORT || 8080
 
