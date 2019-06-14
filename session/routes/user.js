@@ -1,13 +1,10 @@
 const express = require('express')
-const jwt = require('jsonwebtoken')
-const config = require('../../config')
-const JWTAuth = require('../Auth')
+const router = express.Router()
+const sessionAuth = require('../Auth')
 
 // 模拟存储数据库
 const Store = require('../../store')
 const store = new Store()
-
-const router = express.Router()
 
 // 注册
 router.post('/signup', (req, res) => {
@@ -29,10 +26,9 @@ router.post('/signup', (req, res) => {
 })
 
 // 登录
-router.post('/signin', (req, res) => {{
+router.post('/signin', (req, res) => {
   let username = req.body.username
   let password = req.body.password
-
   if (!username || !password) {
     res.json({success: false, message: '请输入您的账号密码'})
     return
@@ -48,19 +44,13 @@ router.post('/signin', (req, res) => {{
     return
   }
 
-  // 签名生成 token
-  let payload = {
-    username: username,
-  }
-  let token = jwt.sign(payload, config.secret, {
-    expiresIn: 10080 // token 有效期
-  })
-  res.send({success: true, token: token, message: `${username} 登录成功`})
-}})
+  req.session.username = username
+  res.send({success: true, message: `${req.session.username} 登录成功`})
+})
 
-
-router.get('/user/info', JWTAuth, (req, res) => {
-  let username = req.username
+// 获取用户详情
+router.get('/user/info', sessionAuth, (req, res) => {
+  let username = req.session.username
   // 拿用户名查找详细信息
   let userInfo = store.find(username)
   res.send({success: true, message: '用户详情获取成功', data: userInfo})
