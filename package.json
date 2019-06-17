@@ -1,5 +1,5 @@
 {
-  "name": "sign-up-in-api",
+  "name": "client-server-session-demos",
   "version": "1.0.0",
   "description": "客户端、服务器建立会话",
   "main": "index.js",
